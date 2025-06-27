@@ -50,6 +50,7 @@ interface FormSectionProps {
 export function FormSection({ children }: FormSectionProps) {
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: "onChange",
   });
 
   const {
@@ -111,27 +112,29 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="education"
               control={control}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value || ""}
-                >
-                  <SelectTrigger id="education" className="w-full">
-                    <SelectValue placeholder="Selecione sua escolaridade" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {educationOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger id="education" className="w-full">
+                      <SelectValue placeholder="Selecione sua escolaridade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {educationOptions.map((option, index) => (
+                        <SelectItem key={index} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {fieldState.error && (
+                    <p className="text-sm text-red-500">
+                      {fieldState.error.message}
+                    </p>
+                  )}
+                </>
               )}
             />
-            {errors.education && (
-              <p className="text-sm text-red-500">{errors.education.message}</p>
-            )}
           </div>
 
           <div className="flex-1 space-y-2">
@@ -139,27 +142,29 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="sports"
               control={control}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value || ""}
-                >
-                  <SelectTrigger id="sports" className="w-full">
-                    <SelectValue placeholder="Selecione os esportes" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sportsOptions.map((sport, index) => (
-                      <SelectItem key={index} value={sport}>
-                        {sport}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger id="sports" className="w-full">
+                      <SelectValue placeholder="Selecione os esportes" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {sportsOptions.map((sport, index) => (
+                        <SelectItem key={index} value={sport}>
+                          {sport}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {fieldState.error && (
+                    <p className="text-sm text-red-500">
+                      {fieldState.error.message}
+                    </p>
+                  )}
+                </>
               )}
             />
-            {errors.sports && (
-              <p className="text-sm text-red-500">{errors.sports.message}</p>
-            )}
           </div>
         </div>
 
@@ -254,27 +259,29 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="state"
               control={control}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value || ""}
-                >
-                  <SelectTrigger id="state" className="w-full">
-                    <SelectValue placeholder="Selecione um Estado" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {states.map(({ sigla, name }) => (
-                      <SelectItem key={sigla} value={sigla}>
-                        {name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              defaultValue=""
+              render={({ field, fieldState }) => (
+                <>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger id="state" className="w-full">
+                      <SelectValue placeholder="Selecione um Estado" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {states.map(({ sigla, name }) => (
+                        <SelectItem key={sigla} value={sigla}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {fieldState.error && (
+                    <p className="text-sm text-red-500">
+                      {fieldState.error.message}
+                    </p>
+                  )}
+                </>
               )}
             />
-            {errors.state && (
-              <p className="text-sm text-red-500">{errors.state.message}</p>
-            )}
           </div>
 
           <div className="flex-[1.5] space-y-2">
