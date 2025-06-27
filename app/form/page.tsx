@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -12,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormSection } from "./components/form";
 
 export default function FormCard() {
   return (
@@ -19,19 +19,7 @@ export default function FormCard() {
       <CardContent className="space-y-6">
         <h3 className="text-xl font-semibold">Campo de Treinamento</h3>
 
-        <div className="space-y-2">
-          <Label htmlFor="nome">Nome</Label>
-          <Input id="nome" name="nome" placeholder="Digite seu nome" />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="sobrenome">Sobrenome</Label>
-          <Input
-            id="sobrenome"
-            name="sobrenome"
-            placeholder="Digite seu sobrenome"
-          />
-        </div>
+        <FormSection />
 
         <div className="space-y-2">
           <Label>Sexo</Label>
