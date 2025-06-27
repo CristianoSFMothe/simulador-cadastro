@@ -19,13 +19,15 @@ import {
 } from "@/components/ui/select";
 
 import { states } from "@/app/utils/states";
+import { educationOptions } from "@/app/utils/educationOptions";
+import { sportsOptions } from "@/app/utils/sportsOptions";
 
 const schema = z.object({
   firstName: z.string().min(1, "Nome é obrigatório"),
   lastName: z.string().min(1, "Sobrenome é obrigatório"),
   street: z.string().min(1, "Rua é obrigatória"),
   number: z.string().min(1, "Número é obrigatório"),
-  district: z.string().min(1, "Bairro é obrigatório"), // obrigatório
+  district: z.string().min(1, "Bairro é obrigatório"),
   complement: z.string().optional(),
   city: z.string().min(1, "Cidade é obrigatória"),
   state: z.string().min(1, "Estado é obrigatório"),
@@ -85,7 +87,7 @@ export function FormSection({ children }: FormSectionProps) {
         className="space-y-6 max-w-2xl mx-auto"
         noValidate
       >
-        {/* Nome */}
+        {/* Nome e Sobrenome */}
         <div className="space-y-2">
           <Label htmlFor="name">Nome</Label>
           <Input id="name" {...register("firstName")} />
@@ -94,7 +96,6 @@ export function FormSection({ children }: FormSectionProps) {
           )}
         </div>
 
-        {/* Sobrenome */}
         <div className="space-y-2">
           <Label htmlFor="lastname">Sobrenome</Label>
           <Input id="lastname" {...register("lastName")} />
@@ -110,23 +111,16 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="education"
               control={control}
-              defaultValue=""
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value || ""}
+                >
                   <SelectTrigger id="education" className="w-full">
                     <SelectValue placeholder="Selecione sua escolaridade" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[
-                      "1º grau incompleto",
-                      "1º grau completo",
-                      "2º grau incompleto",
-                      "2º grau completo",
-                      "Superior",
-                      "Especialização",
-                      "Mestrado",
-                      "Doutorado",
-                    ].map((option, index) => (
+                    {educationOptions.map((option, index) => (
                       <SelectItem key={index} value={option}>
                         {option}
                       </SelectItem>
@@ -145,20 +139,16 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="sports"
               control={control}
-              defaultValue=""
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value || ""}
+                >
                   <SelectTrigger id="sports" className="w-full">
                     <SelectValue placeholder="Selecione os esportes" />
                   </SelectTrigger>
                   <SelectContent>
-                    {[
-                      "Natação",
-                      "Futebol",
-                      "Corrida",
-                      "Karate",
-                      "O que é esporte?",
-                    ].map((sport, index) => (
+                    {sportsOptions.map((sport, index) => (
                       <SelectItem key={index} value={sport}>
                         {sport}
                       </SelectItem>
@@ -217,7 +207,7 @@ export function FormSection({ children }: FormSectionProps) {
           </div>
         </div>
 
-        {/* Endereço: Rua */}
+        {/* Endereço: Rua, Número e Bairro */}
         <div className="space-y-2">
           <Label htmlFor="street">Rua</Label>
           <Input id="street" {...register("street")} />
@@ -226,7 +216,6 @@ export function FormSection({ children }: FormSectionProps) {
           )}
         </div>
 
-        {/* Número e Bairro */}
         <div className="flex flex-col md:flex-row gap-4 w-full">
           <div className="flex-[1] space-y-2">
             <Label htmlFor="number">Número</Label>
@@ -245,7 +234,6 @@ export function FormSection({ children }: FormSectionProps) {
           </div>
         </div>
 
-        {/* Complemento */}
         <div className="space-y-2">
           <Label htmlFor="complement">Complemento</Label>
           <Input id="complement" {...register("complement")} />
@@ -266,9 +254,11 @@ export function FormSection({ children }: FormSectionProps) {
             <Controller
               name="state"
               control={control}
-              defaultValue=""
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value || ""}
+                >
                   <SelectTrigger id="state" className="w-full">
                     <SelectValue placeholder="Selecione um Estado" />
                   </SelectTrigger>
